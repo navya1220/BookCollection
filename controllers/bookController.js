@@ -34,17 +34,22 @@ exports.createBook = async (request, response) => {
   };
 
 exports.getAllBooks = async (request, response) => {
-    try {
-      const books = await Book.find({});
-  
-      return response.status(200).json({
-        data: books,
-      });
-    } catch (error) {
-      console.log(error.message);
-      response.status(500).send({ message: error.message });
-    }
-  };
+  try {
+    const books = await Book.find({});
+
+    return response.status(200).json({
+      success: true,
+      data: books,
+    });
+  } catch (error) {
+    console.error(error.message);
+    return response.status(500).json({
+      success: false,
+      message: 'Internal server error',
+    });
+  }
+};
+
 
 exports.deleteBook = async (request, response) => {
     try {
